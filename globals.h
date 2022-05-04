@@ -1,4 +1,3 @@
-/* a copy of the globals.c variables to include them in other source files */
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
