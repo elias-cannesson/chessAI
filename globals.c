@@ -17,11 +17,6 @@
 int color[64];
 int pieces[64];
 
-/* this is called mailbox because it keeps track of which
- * squares within the 10x12 are board squares and whether
- * they contain pieces */
-/* mailbox keeps track of which
- * squares within the 10x12 are board squares */
 int mailbox[64] = {
         21, 22, 23, 24, 25, 26, 27, 28,
         31, 32, 33, 34, 35, 36, 37, 38,
@@ -85,8 +80,6 @@ char square[64][2] = {
           {"a7"}, {"b7"}, {"c7"}, {"d7"}, {"e7"}, {"f7"}, {"g7"}, {"h7"},
           {"a8"}, {"b8"}, {"c8"}, {"d8"}, {"e8"}, {"f8"}, {"g8"}, {"h8"}
 };
-
-//keeps track of if an en passant capture has been generated.
 
 int go;
 int moveMade;
