@@ -53,9 +53,6 @@ int runGame() {
 
             while (MOVE) {
                 if (side_to_move == ComputerSide) {
-                    //somehow, I need to use the triangular array
-                    //to fucking store the best goddamn move
-                    //why does the pv even matter? does it matter?
                     ComputerPlay();
 
                     makeMove(triangularArray[0][0].index);
@@ -68,24 +65,20 @@ int runGame() {
                         printf("Draw by repetition!\n");
                         MOVE = FALSE;
                         moveMade = TRUE;
-//                        go = FALSE;
                         break;
                     } else if (Result == 3) {
                         printf("Draw by fifty move rule!\n");
                         MOVE = FALSE;
                         moveMade = TRUE;
-//                        go = FALSE;
                         break;
                     } else if (Result == 5) {
                         printf("Draw by stalemate!\n");
                         MOVE = FALSE;
                         moveMade = TRUE;
-//                        go = FALSE;
                         break;
                     } else if (Result == 4) {
                         MOVE = FALSE;
                         moveMade = TRUE;
-//                        go = FALSE;
                         break;
                     }
                     moveMade = TRUE;
@@ -104,16 +97,6 @@ int runGame() {
                     moveMade = TRUE;
 
                     end = TRUE;
-//                    for (int j = 0; j < 12; j++) {
-//                        SDL_DestroyTexture(image_textures[i]);
-//                    }
-//                    for (i = 0; i < 12; i++) {
-//                        SDL_FreeSurface(imagePieces[i]);
-//                    }
-//                    SDL_DestroyRenderer(render);
-//                    SDL_DestroyWindow(window);
-//                    IMG_Quit();
-//                    SDL_Quit();
                     go = FALSE;
                 }
                 if (!strcmp(s, "help")) {
@@ -129,7 +112,6 @@ int runGame() {
                 }
 
                 if (!strcmp(s, "show")) {
-//            printBoard3();
                     int num = 1;
                     for (int u = 0; u < hply; u++) {
 
@@ -190,19 +172,12 @@ int runGame() {
                         moveMade = FALSE;
                         continue;
                     }
-//                    printBoard2();
                     if (historyStack[hply-1].move.capture == EMPTY) {
                         fiftymoves++;
                     } else {
                         fiftymoves = 0;
                     }
 
-                    //once i have made the move, such as e2e4, the movestack is cleared to make space
-                    //for the other side's generated moves.
-//                    memset(moveStack, 0, sizeof(moveStack));
-
-                    //moveSearch, which keeps track of the number of possible moves generated in the position
-                    // for one side is reset to zero. finally, the sides are switched.
                     moveSearch = 0;
                     printf("\n");
 
