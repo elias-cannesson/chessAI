@@ -10,7 +10,6 @@
 // This function loops over each square in the board and checks if there is a piece on that square
 // that matches the current side's color. if it does, pseudo-legal moves are pushed onto the current
 // position's stack of moves
-
 void generateMoves() {
     auto int i, j;
 
@@ -124,12 +123,8 @@ void generateMoves() {
 void knightMove(int from, int to, int offset) {
     move_stack * MOVE_S = NULL;
     int n;
-//    printf("from: %d\n", from);
-//    printf("offset: %d\n", offset);
-//    printf("piece_offsets[2][%d]: %d\n\n", offset, piece_offsets[2][offset]);
     for (n = from;;) {
         n = board[mailbox[n] + piece_offsets[2][offset]];
-//        printf("n: %d\n", n);
         if (n == -1) {
             return;
         }
@@ -169,16 +164,11 @@ void knightMove(int from, int to, int offset) {
 void bishopMove(int from, int to, int offset) {
     move_stack * MOVE_S = NULL;
     int n;
-//    printf("from: %d\n", from);
-//    printf("offset: %d\n", offset);
-//    printf("piece_offsets[3][%d]: %d\n\n", offset, piece_offsets[3][offset]);
     for (n = from;;) {
         n = board[mailbox[n] + piece_offsets[3][offset]];
-//        printf("n: %d\n", n);
         if (n == -1) {
             return;
         }
-//        printf("color @ n: %d\n", color[n]);
         if (color[n] != EMPTY) {
             if (color[n] == other_side) {
                 MOVE_S = &moveStack[movesInSearch[ply + 1]++];
@@ -214,12 +204,8 @@ void bishopMove(int from, int to, int offset) {
 void rookMove(int from, int to, int offset) {
     move_stack * MOVE_S = NULL;
     int n;
-//    printf("from: %d\n", from);
-//    printf("offset: %d\n", offset);
-//    printf("piece_offsets[4][%d]: %d\n\n", offset, piece_offsets[4][offset]);
     for (n = from;;) {
         n = board[mailbox[n] + piece_offsets[4][offset]];
-//        printf("n: %d\n", n);
         if (n == -1) {
             return;
         }
@@ -258,12 +244,8 @@ void rookMove(int from, int to, int offset) {
 void queenMove(int from, int to, int offset) {
     move_stack * MOVE_S = NULL;
     int n;
-//    printf("from: %d\n", from);
-//    printf("offset: %d\n", offset);
-//    printf("piece_offsets[5][%d]: %d\n\n", offset, piece_offsets[5][offset]);
     for (n = from;;) {
         n = board[mailbox[n] + piece_offsets[5][offset]];
-//        printf("n: %d\n", n);
         if (n == -1) {
             return;
         }
@@ -341,18 +323,8 @@ int makeMove(int index) {
     int from2, to2;
     from = moveStack[index].move.from;
     to = moveStack[index].move.to;
-
-//    if (abs(from - to) == 1 && moveStack[index].move.pieceType == KING) {
-//        if (side_to_move == WHITE) {
-//            castle = 12;
-//        }
-//        else {
-//            castle = 3;
-//        }
-//    }
-
+    
     if (abs(from - to) == 2 && moveStack[index].move.pieceType == KING) {
-
         if (Check(side_to_move)) {
             return FALSE;
         }
@@ -406,15 +378,8 @@ int makeMove(int index) {
         }
 
     }
-//    printf("Move just made:\n"
-//           "from: %d, to: %d, pieceType: %d. capture: %d\n",
-//           moveStack[index].move.from, moveStack[index].move.to,
-//           moveStack[index].move.pieceType,
-//           moveStack[index].move.capture);
-
     historyStack[hply].move = moveStack[index].move;
     historyStack[hply].enPassant = enPassant;
-//    printf("castle: %d\n", castle);
     historyStack[hply].castle = castle;
     historyStack[hply].fiftymoves = fiftymoves;
 
@@ -436,7 +401,6 @@ int makeMove(int index) {
         historyStack[hply-1].move.enP = FALSE;
     }
 
-
     // this bit of code detects if an enPassant square has been created.
     if (moveStack[index].move.pieceType == PAWN && abs(from - to) == 16) {
         if (side_to_move == WHITE) {
@@ -451,13 +415,7 @@ int makeMove(int index) {
     ply++;
     side_to_move ^= 1;
     other_side ^= 1;
-//    printf("moveStack[%d].move.from: %d\n"
-//           "moveStack[%d].move.to: %d\n"
-//           "moveStack[%d].move.pieceType: %d\n"
-//           "moveStack[%d].move.capture: %d\n", index, moveStack[index].move.from,
-//           index, moveStack[index].move.to, index, moveStack[index].move.pieceType,
-//           index, moveStack[index].move.capture);
-
+    
     if (Check(other_side)) {
         undo();
         return FALSE;
@@ -478,11 +436,8 @@ void undo() {
     from = historyStack[hply].move.from;
     to = historyStack[hply].move.to;
 
-//    printf("castle right now: %d\n", castle);
     enPassant = historyStack[hply].enPassant ;
-//    printf("historyStack[%d].castle: %d\n", hply, historyStack[hply-1].castle);
     castle = historyStack[hply-1].castle;
-//    printf("New castle: %d\n", castle);
     fiftymoves = historyStack[hply].fiftymoves;
 
     if (abs(from - to) == 2 && historyStack[hply].move.pieceType == KING) {
@@ -591,8 +546,6 @@ int checkAttack(int i, int side) {
             } else {
                 switch (pieces[j]) {
                     case KNIGHT:
-                        // for all knight moves, check if any of these moves land on the king's square
-                        // out of all 64 squares.
                         for (direction = 0; direction < 8; direction++) {
 
                             for (potentialSquare = j;;) {
@@ -690,111 +643,3 @@ void RandomComputerMove() {
     }
 
 }
-
-//                    if (board[mailbox[i] - 11] != -1) {
-//                        if (color[i-9] == other_side) {
-//                            pawnMovePush(i, i - 9, 17);
-//                        }
-//                        if (enPassant != -1 && (i - 9) == enPassant) {
-//                            pawnMovePush(i, enPassant, 21);
-//                        }
-//                    }
-//
-//                    if (pieces[i-8] == EMPTY) {
-//                        pawnMovePush(i, i - 8, 16);
-//                    }
-//
-//                    if (board[mailbox[i] - 9] != -1) {
-//                        if (color[i-7] == other_side) {
-//                            pawnMovePush(i, i - 7, 17);
-//                        }
-//                        if (enPassant != -1 && (i - 7) == enPassant) {
-//                            pawnMovePush(i, enPassant, 21);
-//                        }
-//                    }
-//
-//                    if (i >= 48 && i <= 55 &&
-//                    pieces[i-8] == EMPTY && pieces[i-16] == EMPTY) {
-//                        pawnMovePush(i, i - 16, 24);
-//                    }
-//
-//
-//                } else {
-//
-//                    if (board[mailbox[i] + 11] != -1) {
-//                        if (color[i+9] == other_side) {
-//                            pawnMovePush(i, i + 9, 17);
-//                        }
-//                        if (enPassant != -1 && (i + 9) == enPassant) {
-//                                pawnMovePush(i, enPassant, 21);
-//                            }
-//                    }
-//
-//                    if (pieces[i+8] == EMPTY) {
-//                        pawnMovePush(i, i + 8, 16);
-//                    }
-//
-//                    if (board[mailbox[i] + 9] != -1) {
-//                        if (color[i+7] == other_side) {
-//                            pawnMovePush(i, i + 7, 17);
-//                        }
-//                        if (enPassant != -1 && (i + 7) == enPassant) {
-//                            pawnMovePush(i, enPassant, 21);
-//                        }
-//                    }
-//
-//                    if (i >= 8 && i <= 15 && pieces[i+8] == EMPTY && pieces[i+16] == EMPTY) {
-//                        pawnMovePush(i, i + 16, 24);
-//                    }
-//
-//                }
-
-
-
-///for pawns: enPassantCapture = 21, pawnCapture = 17; pawnMove = 16; pawn2squareMove = 24; pawnPromote = 48
-//void pawnMovePush(int from, int to, int bits) {
-//    auto int i;
-//
-//    move_stack *movePtr = NULL;
-////    || (to > 55 && to < 64)
-//    if ((to < 8 && to >= 0)) {
-////        printf("entered promotion stage\n");
-//        for (i = 2; i < 6; i++) {
-//            movePtr = &moveStack[movesInSearch[ply+1]++];
-//            movePtr->move.from = from;
-//            movePtr->move.to = to;
-//            movePtr->move.pieceType = piece_numbers[i];
-//            movePtr->move.capture = pieces[to];
-//            movePtr->move.index = moveSearch;
-//            movePtr->move.promoted = TRUE;
-//
-//            moveSearch++;
-//        }
-//
-//        return;
-//    }
-//    if (bits == 21) {
-//        movePtr = &moveStack[movesInSearch[ply+1]++];
-//        movePtr->move.from = from;
-//        movePtr->move.to = enPassant;
-//        movePtr->move.pieceType = PAWN;
-//        movePtr->move.capture = PAWN;
-//        movePtr->move.index = moveSearch;
-//        movePtr->move.promoted = FALSE;
-//
-//        bool_enPassant = TRUE;
-//        moveSearch++;
-//        return;
-//
-//    }
-//
-//    movePtr = &moveStack[movesInSearch[ply + 1]++];
-//    movePtr->move.from = from;
-//    movePtr->move.to = to;
-//    movePtr->move.pieceType = PAWN;
-//    movePtr->move.capture = pieces[to];
-//    movePtr->move.index = moveSearch;
-//    movePtr->move.promoted = FALSE;
-//    moveSearch++;
-//
-//}
