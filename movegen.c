@@ -133,7 +133,6 @@ void knightMove(int from, int to, int offset) {
                 MOVE_S = &moveStack[movesInSearch[ply + 1]++];
                 MOVE_S->move.from = from;
                 MOVE_S->move.to = n;
-                MOVE_S->move.pieceType = KNIGHT;
                 MOVE_S->move.capture = pieces[n];
                 MOVE_S->move.pieceType = pieces[from];
                 MOVE_S->move.index = moveSearch;
@@ -148,7 +147,6 @@ void knightMove(int from, int to, int offset) {
         MOVE_S = &moveStack[movesInSearch[ply + 1]++];
         MOVE_S->move.from = from;
         MOVE_S->move.to = n;
-        MOVE_S->move.pieceType = KNIGHT;
         MOVE_S->move.capture = pieces[n];
         MOVE_S->move.pieceType = pieces[from];
         MOVE_S->move.index = moveSearch;
@@ -174,7 +172,6 @@ void bishopMove(int from, int to, int offset) {
                 MOVE_S = &moveStack[movesInSearch[ply + 1]++];
                 MOVE_S->move.from = from;
                 MOVE_S->move.to = n;
-                MOVE_S->move.pieceType = BISHOP;
                 MOVE_S->move.capture = pieces[n];
                 MOVE_S->move.pieceType = pieces[from];
                 MOVE_S->move.index = moveSearch;
@@ -189,7 +186,6 @@ void bishopMove(int from, int to, int offset) {
         MOVE_S = &moveStack[movesInSearch[ply + 1]++];
         MOVE_S->move.from = from;
         MOVE_S->move.to = n;
-        MOVE_S->move.pieceType = BISHOP;
         MOVE_S->move.capture = pieces[n];
         MOVE_S->move.pieceType = pieces[from];
         MOVE_S->move.index = moveSearch;
@@ -214,7 +210,6 @@ void rookMove(int from, int to, int offset) {
                 MOVE_S = &moveStack[movesInSearch[ply + 1]++];
                 MOVE_S->move.from = from;
                 MOVE_S->move.to = n;
-                MOVE_S->move.pieceType = ROOK;
                 MOVE_S->move.capture = pieces[n];
                 MOVE_S->move.pieceType = pieces[from];
                 MOVE_S->move.index = moveSearch;
@@ -229,7 +224,6 @@ void rookMove(int from, int to, int offset) {
         MOVE_S = &moveStack[movesInSearch[ply + 1]++];
         MOVE_S->move.from = from;
         MOVE_S->move.to = n;
-        MOVE_S->move.pieceType = ROOK;
         MOVE_S->move.capture = pieces[n];
         MOVE_S->move.pieceType = pieces[from];
         MOVE_S->move.index = moveSearch;
@@ -254,7 +248,6 @@ void queenMove(int from, int to, int offset) {
                 MOVE_S = &moveStack[movesInSearch[ply + 1]++];
                 MOVE_S->move.from = from;
                 MOVE_S->move.to = n;
-                MOVE_S->move.pieceType = QUEEN;
                 MOVE_S->move.capture = pieces[n];
                 MOVE_S->move.pieceType = pieces[from];
                 MOVE_S->move.index = moveSearch;
@@ -269,7 +262,6 @@ void queenMove(int from, int to, int offset) {
         MOVE_S = &moveStack[movesInSearch[ply + 1]++];
         MOVE_S->move.from = from;
         MOVE_S->move.to = n;
-        MOVE_S->move.pieceType = QUEEN;
         MOVE_S->move.capture = pieces[n];
         MOVE_S->move.pieceType = pieces[from];
         MOVE_S->move.index = moveSearch;
